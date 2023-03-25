@@ -10,12 +10,11 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import DeliveryFeeCalculatorForm from './components/form/DeliveryFeeCalculatorForm';
+import AirdropForm from './components/form/AirdropForm';
 
 const mdTheme = createTheme();
 
 function App() {
-
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -34,7 +33,7 @@ function App() {
         >
           <Toolbar />
           <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
+            <Grid container spacing={4}>
               <Grid item xs={12}>
                 <Paper
                   sx={{
@@ -43,10 +42,19 @@ function App() {
                     flexDirection: 'column',
                     height: 600,
                     textAlign: 'center',
+                    gap: '10px',
                   }}
                 >
-                  <Typography variant='h5'> Delivery Fee Calculator </Typography>
-                  <DeliveryFeeCalculatorForm />
+                  <Typography variant='h5'> Airdrop token </Typography>
+                  <Typography variant='body1'>
+                    {' '}
+                    The format should be the same as in the Remix. For example
+                    addresses field should be
+                    ["0x40AF7d98e9F2844833bFdaA17ad4b7396143858b",
+                    "0x40AF7d98e9F2844833bFdaA17ad4b7396143858b"], while the
+                    amounts field should be ["100000000000000000000", "100000000000000000000"]{' '}
+                  </Typography>
+                  <AirdropForm />
                 </Paper>
               </Grid>
             </Grid>

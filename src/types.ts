@@ -1,6 +1,4 @@
-export interface Delivery {
-    cartValue: number;
-    deliveryDistance: number;
-    numberOfItems: number;
-    time: string;
+export interface Airdrop {
+    addresses: string;
+    amounts: string;
   }
