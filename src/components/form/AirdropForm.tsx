@@ -2,16 +2,22 @@ import React, { useState } from 'react';
 import { Form, Formik } from 'formik';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Airdrop } from '../../types';
+import { Contract } from 'ethers';
 
 const initialValues: Airdrop = {
-  addresses: '',
-  amounts: '',
+  addresses:
+    '0x40AF7d98e9F2844833bFdaA17ad4b7396143858b,0x2F9cc0C3AE27FD8151E71E36e01Bd123EE098B04',
+  amounts: '100000000000,10000000000000',
 };
 
-const AirdropForm: React.FC = () => {
-  const [addresses, setAddresses] = useState<string>('');
-  const [amountArray, setAmountArray] = useState<string>('');
+type Props = {
+  contract: Contract | null;
+  tokenAddress: string;
+  account: string;
+};
 
+const AirdropForm: React.FC<Props> = ({ contract, tokenAddress, account }) => {
+  const [hashPassed, setHashPassed] = useState<string>('');
   const validate = (values: Airdrop) => {
     const errors: Partial<Airdrop> = {};
     if (!values.addresses) {
@@ -28,7 +34,20 @@ const AirdropForm: React.FC = () => {
   };
 
   const handleSubmit = (values: Airdrop) => {
-    console.log(values);
+    if (contract) {
+      console.log(values.addresses);
+      console.log(values.amounts);
+      contract
+        .airdropWithTransfer(
+          tokenAddress,
+          values.addresses.split(','),
+          values.amounts.split(',')
+        )
+        .then((res: any) => {
+          console.log(res);
+          setHashPassed(res.hash);
+        });
+    }
   };
 
   return (
@@ -58,7 +77,10 @@ const AirdropForm: React.FC = () => {
               onBlur={handleBlur}
               error={!!errors['addresses']}
               helperText={!!errors['addresses'] && errors['addresses']}
+              multiline
+              fullWidth
               required
+              style={{ width: '50%' }}
             />
             <TextField
               label='Amounts'
@@ -69,11 +91,15 @@ const AirdropForm: React.FC = () => {
               onBlur={handleBlur}
               error={!!errors['amounts']}
               helperText={!!errors['amounts'] && errors['amounts']}
+              multiline
+              fullWidth
               required
+              style={{ width: '50%' }}
             />
             <Button type='submit' variant='contained'>
               Submit
             </Button>
+            {hashPassed.length > 0 && `Hash: ${hashPassed}`}
           </Box>
         </Form>
       )}
