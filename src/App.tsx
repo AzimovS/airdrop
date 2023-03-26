@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import AirdropForm from './components/form/AirdropForm';
+import Main from './pages/Main';
 
 const mdTheme = createTheme();
 
@@ -45,16 +46,7 @@ function App() {
                     gap: '10px',
                   }}
                 >
-                  <Typography variant='h5'> Airdrop token </Typography>
-                  <Typography variant='body1'>
-                    {' '}
-                    The format should be the same as in the Remix. For example
-                    addresses field should be
-                    ["0x40AF7d98e9F2844833bFdaA17ad4b7396143858b",
-                    "0x40AF7d98e9F2844833bFdaA17ad4b7396143858b"], while the
-                    amounts field should be ["100000000000000000000", "100000000000000000000"]{' '}
-                  </Typography>
-                  <AirdropForm />
+                  <Main />
                 </Paper>
               </Grid>
             </Grid>

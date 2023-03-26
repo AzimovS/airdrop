@@ -3,13 +3,6 @@ import { Form, Formik } from 'formik';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Airdrop } from '../../types';
 
-interface Errors {
-  cartValue?: string;
-  deliveryDistance?: string;
-  numberOfItems?: string;
-  time?: string;
-}
-
 const initialValues: Airdrop = {
   addresses: '',
   amounts: '',
